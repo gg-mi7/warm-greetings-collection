@@ -58,6 +58,10 @@ export const Navbar = ({
     if (category !== "Scripts" && onScriptNameClick) {
       onScriptNameClick(category);
     }
+    else
+    {
+      onScriptNameClick("");
+    }
   };
   
   return (
