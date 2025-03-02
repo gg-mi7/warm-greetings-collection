@@ -8,7 +8,7 @@ interface NavbarProps {
   className?: string;
   selectedCategory: string;
   setSelectedCategory: (category: string) => void;
-  onScriptNameClick?: (scriptName: string) => void; // Add this new prop
+  onScriptNameClick?: (scriptName: string) => void;
 }
 
 // Fetch script names for the navbar

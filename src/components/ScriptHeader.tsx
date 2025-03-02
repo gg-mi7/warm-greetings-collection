@@ -1,5 +1,5 @@
 
-import { Script } from "@/types/script";
+import { Script } from "../types/script";
 import { ScriptRating } from "./ScriptRating";
 import { Copy, Play } from "lucide-react";
 import { toast } from "sonner";
