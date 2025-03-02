@@ -1,12 +1,12 @@
 
 import { useState, useEffect } from "react";
-import { SearchBar } from "@/components/SearchBar";
-import { ScriptCard } from "@/components/ScriptCard";
-import { ScriptDetail } from "@/components/ScriptDetail";
-import { Navbar } from "@/components/Navbar";
-import { Script } from "@/types/script";
-import { cn } from "@/lib/utils";
+import { SearchBar } from "../components/SearchBar";
+import { ScriptCard } from "../components/ScriptCard";
+import { ScriptDetail } from "../components/ScriptDetail";
+import { Navbar } from "../components/Navbar";
+import { cn } from "../lib/utils";
 import { useQuery } from "@tanstack/react-query";
+import { Script } from "../types/script";
 
 const fetchScripts = async (): Promise<Script[]> => {
   try {

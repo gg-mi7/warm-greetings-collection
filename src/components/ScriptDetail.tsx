@@ -1,5 +1,5 @@
 
-import { Script } from "@/types/script";
+import { Script } from "../types/script";
 import { ScriptDetailTabs } from "./ScriptDetailTabs";
 import { ScriptHeader } from "./ScriptHeader";
 

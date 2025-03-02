@@ -1,8 +1,8 @@
 
 import { Menu } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "../lib/utils";
 import { useQuery } from "@tanstack/react-query";
-import { Script } from "@/types/script";
+import { Script } from "../types/script";
 
 interface NavbarProps {
   className?: string;

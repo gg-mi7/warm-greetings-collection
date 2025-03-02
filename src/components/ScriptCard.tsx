@@ -1,7 +1,7 @@
 
-import { Script } from "@/types/script";
+import { Script } from "../types/script";
 import { ScriptLogo } from "./ScriptLogo";
-import { cn } from "@/lib/utils";
+import { cn } from "../lib/utils";
 
 interface ScriptCardProps {
   script: Script;
