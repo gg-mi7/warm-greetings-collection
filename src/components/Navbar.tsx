@@ -9,6 +9,7 @@ interface NavbarProps {
   selectedCategory: string;
   setSelectedCategory: (category: string) => void;
   onScriptNameClick?: (scriptName: string) => void;
+  searchQuery?: string; // Add searchQuery prop
 }
 
 // Fetch script names for the navbar
@@ -19,20 +20,36 @@ const fetchScriptNames = async (): Promise<string[]> => {
       throw new Error('Failed to fetch scripts');
     }
     const data = await response.json();
-    // Get all script names but limit to top 5 for display
+    // Get all script names
     const scriptNames = data.map((script: any) => script.name || "Unnamed Script");
-    return ["Scripts", ...scriptNames.slice(0, 5)]; // Only take the first 5 scripts plus "Scripts"
+    return ["Scripts", ...scriptNames]; // Return all scripts plus "Scripts" category
   } catch (error) {
     console.error("Error fetching script names:", error);
     return ["Scripts"];
   }
 };
 
-export const Navbar = ({ className, selectedCategory, setSelectedCategory, onScriptNameClick }: NavbarProps) => {
-  const { data: categories = ["Scripts"], isLoading } = useQuery({
+export const Navbar = ({ 
+  className, 
+  selectedCategory, 
+  setSelectedCategory, 
+  onScriptNameClick,
+  searchQuery = "" // Default to empty string
+}: NavbarProps) => {
+  const { data: allCategories = ["Scripts"], isLoading } = useQuery({
     queryKey: ['scriptNames'],
     queryFn: fetchScriptNames,
   });
+  
+  // Filter categories based on search query if present
+  const categories = searchQuery 
+    ? allCategories.filter(cat => 
+        cat.toLowerCase().includes(searchQuery.toLowerCase()) || cat === "Scripts"
+      )
+    : allCategories;
+  
+  // Make sure we don't show too many categories (limit to 6 for UI space)
+  const displayCategories = ["Scripts", ...categories.filter(cat => cat !== "Scripts").slice(0, 5)];
   
   const handleCategoryClick = (category: string) => {
     setSelectedCategory(category);
@@ -51,7 +68,7 @@ export const Navbar = ({ className, selectedCategory, setSelectedCategory, onScr
         {isLoading ? (
           <div className="text-gray-400 text-sm">Loading scripts...</div>
         ) : (
-          categories.map((category) => (
+          displayCategories.map((category) => (
             <button
               key={category}
               className={cn(

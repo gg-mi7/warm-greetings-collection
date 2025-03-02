@@ -7,6 +7,7 @@ import { Navbar } from "../components/Navbar";
 import { cn } from "../lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import { Script } from "../types/script";
+import { Toaster } from "sonner";
 
 const fetchScripts = async (): Promise<Script[]> => {
   try {
@@ -46,7 +47,7 @@ const Index = () => {
 
   useEffect(() => {
     // Filter scripts based on search query and category
-    let filtered = scripts;
+    let filtered = [...scripts]; // Create a copy to avoid mutation issues
     
     if (searchQuery) {
       filtered = filtered.filter(script => 
@@ -84,6 +85,7 @@ const Index = () => {
 
   return (
     <div className="flex flex-col min-h-screen overflow-hidden bg-neco-dark text-white">
+      <Toaster position="top-right" />
       <div className="py-4 px-6 border-b border-neco-light-gray flex items-center">
         <h1 className="text-xl font-bold flex items-center">
           <img src="/lovable-uploads/28a39337-129d-472d-92ab-456715eed1a7.png" alt="Neco-Hub" className="w-6 h-6 mr-2" />
@@ -98,6 +100,7 @@ const Index = () => {
         selectedCategory={selectedCategory} 
         setSelectedCategory={setSelectedCategory}
         onScriptNameClick={handleScriptNameClick}
+        searchQuery={searchQuery} // Pass searchQuery to navbar
       />
 
       <div className="flex-1 flex overflow-hidden">
