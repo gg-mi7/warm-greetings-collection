@@ -77,6 +77,11 @@ const Index = () => {
     setSelectedScript(null);
   };
 
+  // Handle when a script name is clicked in the navbar
+  const handleScriptNameClick = (scriptName: string) => {
+    setSearchQuery(scriptName);
+  };
+
   return (
     <div className="flex flex-col min-h-screen overflow-hidden bg-neco-dark text-white">
       <div className="py-4 px-6 border-b border-neco-light-gray flex items-center">
@@ -85,13 +90,14 @@ const Index = () => {
           Neco-Hub
         </h1>
         <div className="ml-auto">
-          <SearchBar onSearch={setSearchQuery} />
+          <SearchBar onSearch={setSearchQuery} initialValue={searchQuery} />
         </div>
       </div>
 
       <Navbar 
         selectedCategory={selectedCategory} 
-        setSelectedCategory={setSelectedCategory} 
+        setSelectedCategory={setSelectedCategory}
+        onScriptNameClick={handleScriptNameClick}
       />
 
       <div className="flex-1 flex overflow-hidden">

@@ -8,6 +8,7 @@ interface NavbarProps {
   className?: string;
   selectedCategory: string;
   setSelectedCategory: (category: string) => void;
+  onScriptNameClick?: (scriptName: string) => void; // Add this new prop
 }
 
 // Fetch script names for the navbar
@@ -27,11 +28,20 @@ const fetchScriptNames = async (): Promise<string[]> => {
   }
 };
 
-export const Navbar = ({ className, selectedCategory, setSelectedCategory }: NavbarProps) => {
+export const Navbar = ({ className, selectedCategory, setSelectedCategory, onScriptNameClick }: NavbarProps) => {
   const { data: categories = ["Scripts"], isLoading } = useQuery({
     queryKey: ['scriptNames'],
     queryFn: fetchScriptNames,
   });
+  
+  const handleCategoryClick = (category: string) => {
+    setSelectedCategory(category);
+    
+    // If it's not the "Scripts" category and we have a click handler, call it
+    if (category !== "Scripts" && onScriptNameClick) {
+      onScriptNameClick(category);
+    }
+  };
   
   return (
     <div className={cn("flex items-center h-16 px-4", className)}>
@@ -50,7 +60,7 @@ export const Navbar = ({ className, selectedCategory, setSelectedCategory }: Nav
                   ? "text-white" 
                   : "text-gray-400 hover:text-white"
               )}
-              onClick={() => setSelectedCategory(category)}
+              onClick={() => handleCategoryClick(category)}
             >
               {category}
             </button>
