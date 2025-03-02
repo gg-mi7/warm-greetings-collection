@@ -1,6 +1,6 @@
 
 import { Script } from "../types/script";
-import { ScriptRating } from "./ScriptRating";
+import { ScriptRating } from "./ScriptRating.tsx";
 import { Copy, Play } from "lucide-react";
 import { toast } from "sonner";
 
